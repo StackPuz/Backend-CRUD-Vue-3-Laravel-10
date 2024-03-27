@@ -18,24 +18,16 @@
                 <thead>
                   <tr>
                     <th>Product Name</th>
-                    <th>Product Price</th>
-                    <th>Actions</th>
+                    <th>Price</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="brandProduct in brandProducts" :key="brandProduct">
                     <td>{{brandProduct.name}}</td>
                     <td class="text-right">{{brandProduct.price}}</td>
-                    <td class="text-center">
-                      <router-link class="btn btn-sm btn-secondary" :to="`/product/${brandProduct.id}`" title="View"><i class="fa fa-eye"></i></router-link>
-                      <router-link class="btn btn-sm btn-primary" :to="`/product/edit/${brandProduct.id}`" title="Edit"><i class="fa fa-pencil"></i></router-link>
-                      <a class="btn btn-sm btn-danger" href="#!" @click.prevent="deleteItem(`products/${brandProduct.id}`)" title="Delete"><i class="fa fa-times"></i></a>
-                    </td>
                   </tr>
                 </tbody>
               </table>
-              <router-link class="btn btn-sm btn-primary" :to="`/product/create?product_brand_id=${brand.id}`">Add</router-link>
-              <hr />
             </div>
             <div class="col-12">
               <router-link class="btn btn-sm btn-secondary" :to="getRef('/brand')">Back</router-link>
@@ -50,7 +42,6 @@
 <script>
 import Service from './Service'
 import Util from"../../util"
-import http from '../../http'
 
 export default {
   name: 'BrandDetail',
@@ -72,15 +63,6 @@ export default {
         this.brand = response.data.brand
         this.brandProducts = response.data.brandProducts
       })
-    }
-    ,deleteItem(url) {
-      if (confirm('Delete this item?')) {
-        http.delete(url).then(() => {
-          this.get()
-        }).catch((e) => {
-          alert(e.response.data.message)
-        })
-      }
     }
   }
 }

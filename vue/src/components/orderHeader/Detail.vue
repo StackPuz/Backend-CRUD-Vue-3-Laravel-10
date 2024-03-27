@@ -23,7 +23,6 @@
                     <th>No</th>
                     <th>Product</th>
                     <th>Qty</th>
-                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -31,15 +30,9 @@
                     <td class="text-center">{{orderHeaderOrderDetail.no}}</td>
                     <td>{{orderHeaderOrderDetail.product_name}}</td>
                     <td class="text-right">{{orderHeaderOrderDetail.qty}}</td>
-                    <td class="text-center">
-                      <router-link class="btn btn-sm btn-primary" :to="`/orderDetail/edit/${orderHeaderOrderDetail.order_id}/${orderHeaderOrderDetail.no}`" title="Edit"><i class="fa fa-pencil"></i></router-link>
-                      <a class="btn btn-sm btn-danger" href="#!" @click.prevent="deleteItem(`orderDetails/${orderHeaderOrderDetail.order_id}/${orderHeaderOrderDetail.no}`)" title="Delete"><i class="fa fa-times"></i></a>
-                    </td>
                   </tr>
                 </tbody>
               </table>
-              <router-link class="btn btn-sm btn-primary" :to="`/orderDetail/create?order_detail_order_id=${orderHeader.id}`">Add</router-link>
-              <hr />
             </div>
             <div class="col-12">
               <router-link class="btn btn-sm btn-secondary" :to="getRef('/orderHeader')">Back</router-link>
@@ -54,7 +47,6 @@
 <script>
 import Service from './Service'
 import Util from"../../util"
-import http from '../../http'
 
 export default {
   name: 'OrderHeaderDetail',
@@ -76,15 +68,6 @@ export default {
         this.orderHeader = response.data.orderHeader
         this.orderHeaderOrderDetails = response.data.orderHeaderOrderDetails
       })
-    }
-    ,deleteItem(url) {
-      if (confirm('Delete this item?')) {
-        http.delete(url).then(() => {
-          this.get()
-        }).catch((e) => {
-          alert(e.response.data.message)
-        })
-      }
     }
   }
 }
